@@ -1,0 +1,20 @@
+actor User
+
+User -> web: navigate
+web -> api: fetch json data
+api -> storage: fetch rdf data
+storage --> api: rdf data 
+api -> parser: rdf2json(data)
+parser --> api: json data
+api --> web: json data
+web -> web: render react components
+
+
+User -> web: add new entity
+web -> api: post orchx data
+api -> parser: orchx2rdf(data)
+parser --> api: rdf data
+api -> storage: store rdf data
+storage --> api: rdf data 
+
+

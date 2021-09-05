@@ -2,13 +2,16 @@ import sys
 from lark import Lark, Transformer, v_args
 from lark.indenter import Indenter
 import json
+from string import Template
+
+from orchestra_parser import  lang
 
         
 class TreeToList(Transformer):
     @v_args(inline=True)
     def string(self, s):
         return s[1:-1].replace('\\"', '"')
-    def string_ml(self, s):        
+    def string_ml(self, s):
         return (
             s[0][1:-1]
             .replace('""', '')
@@ -74,14 +77,17 @@ class TreeToList(Transformer):
 
 
 
-orchestra_parser = Lark.open("grammar/orchestra-lang-grammar.v1.3.lark", parser='lalr', lexer='standard', transformer=TreeToList())
-
 
 def start():
-    #print(orchestra_parser.parse(orchestra_test_string1).pretty())
-    with open(sys.argv[1]) as f:
-        #tree = json_parser.parse(f.read())
-        #tree = TreeToJson().transform(tree)        
-        #print(tree['a'])
-        entities = orchestra_parser.parse(f.read())
-        print(json.dumps(entities))
+    grammar_template_file_path = "orchestra-lang-grammar.v1.5.lark.template"
+    with open(grammar_template_file_path) as grammar_template_file:
+        orchestra_parser = Lark(Template(grammar_template_file.read()).substitute(lang.keywords))
+
+        Lark.open(, parser='lalr', lexer='standard', transformer=TreeToList())
+        #print(orchestra_parser.parse(orchestra_test_string1).pretty())
+        with open(sys.argv[1]) as f:
+            #tree = json_parser.parse(f.read())
+            #tree = TreeToJson().transform(tree)        
+            #print(tree['a'])
+            entities = orchestra_parser.parse(f.read())
+            print(json.dumps(entities))

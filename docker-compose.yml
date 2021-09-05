@@ -1,0 +1,14 @@
+services:
+    api:
+        extends:
+            file: services/orchestra-api/docker-compose.yml
+            service: orchestra-api
+    #cli:
+    web: 
+        extends:
+            file: services/orchestra-web/docker-compose.yml
+            service: orchestra-web
+    storage:
+        extends:
+            file: services/orchestra-storage/jena-fuseki-docker-4.1.0/docker-compose.yaml
+            service: fuseki
