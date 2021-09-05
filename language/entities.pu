@@ -1,0 +1,177 @@
+@startuml
+left to right direction
+skinparam backgroundColor Trasparent
+skinparam FontName Times New Roman
+skinparam shadowing false
+skinparam StartColor #555
+skinparam EndColor #555
+skinparam ClassFontSize 24
+skinparam ClassAttributeFontSize 22
+skinparam dpi 120
+
+
+class Entity {
+    +name: String
+    +hasDescription: String    
+    +hasTags: List<String>
+    +as: Entity
+}
+
+class Orchestra {
+    +extends: Orchestra
+    +hasOrchestras: List<Orchestra>
+    +hasProjects: List<Project>
+    +hasRoles: List<Role>
+    +hasMembers: List<Member>
+}
+
+class Project {
+    +extends: Project
+    +of: Orchestra
+    +hasReleases: List<Release>
+    +hasRoles: List<Role>    
+    +hasMembers: List<Member>
+    +hasRepositories: List<Repository>
+}
+
+class Requirement {
+    +extends: Requirement
+    +expands: List<Requirement>
+    +of: Project
+    +excludes: List<Requirement>
+    +hasRequirements: List<Requirement>
+    +hasSources: List<Member | String>
+}
+
+class Feature {
+    +extends: Feature
+    +expands: Feature
+    +from: List<Member | String>
+    +hasRequirements: List<Requirement>
+    +implemented: Boolean
+    +hasUrls: List<String>
+}
+
+class Release {
+    +extends: Release
+    +of: List<Orchestra | Project | Release>
+    +hasRequirements: List<Requirement>
+    +supports: List<Requirement | Feature>
+    +excludes: List<Requirement | Feature>
+    +hasStartDate: Date
+    +hasEndDate: Date
+    +hasReleaseDate: Date
+    +hasVersion: String
+    +hasNotes: String
+}
+
+class EventHandler {
+    +extends: EventHandler
+    +on: Event
+    +triggers: Task
+}
+
+class Event {
+    +extends: Event
+    +hasType: "date" | "merge_request" | "commit"
+    +hasRepositories: List<Repository>
+    +hasSources: List<Repository | Role | Member>
+}
+
+class Test {
+    +extends: Test
+    +hasCommand: String
+    +targets: List<Release | Deployment>
+}
+
+class Repository {
+    +extends: Repository
+    +hasUrl: String
+    +hasGuests: List<Member>
+    +hasDevelopers: List<Member>
+    +hasMaintainers: List<Member>
+}
+
+class Member {
+    +extends: Member
+    +hasHandles: String
+    +hasRoles: List<Role | String>
+}
+
+class Definition {
+    +extends: Definition
+    +expands: List<Entity>
+    +hasSources: List<Member | String>
+    +from: Member | String
+    +solves: List<Issue>
+}
+
+class Issue {
+    +extends: Issue
+    +solvedBy: List<Entity>
+    +relatedTo: List<Entity>
+    +from: Member | String
+}
+
+class UseCase {
+    +extends: UseCase
+    +hasPrimaryActor: Member | String
+    +hasActors: List<Member | String>
+    +triggers: List<Feature>
+}
+
+class Task {
+    +extends: Task
+    +hasCommand: String
+    +hasUrls: List<String>
+}
+
+class DataStruct {}
+
+class Deployment {
+    +extends: Deployment
+    +hasType: "Production" | "Test"
+    +of: Release | Deployment
+    +hasIp: String
+    +hasDomain: String
+    +hasPorts: List<String>
+    +isLive: Boolean
+}
+class Role {
+    +extends: Role
+    +hasStartDate: Date
+    +hasEndDate: Date
+    +hasResponsabilities: List<String>
+    +of: List<Orchestra | Project>
+}
+
+
+
+
+
+Entity <|-up- Task
+Entity <|-up- Issue
+Entity <|-up- Definition
+Entity <|-up- Requirement
+Entity <|-up- Project
+Entity <|-up- Orchestra
+
+
+Entity <|-left- Feature
+Entity <|-left- Release
+
+Entity <|-right- Event
+Entity <|-right- Test
+Entity <|-right- Deployment
+
+Entity <|--- Repository
+Entity <|--- Role
+Entity <|--- Member
+Entity <|--- DataStruct
+Entity <|--- UseCase
+Entity <|--- EventHandler
+
+
+
+
+@enduml

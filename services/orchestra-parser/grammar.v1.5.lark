@@ -1,0 +1,490 @@
+?start: entity+
+
+entity: kw___Entity__declaration_prefix entity_declaration
+
+entity_declaration: kw___Orchestra Entity_prop___name kw___Entity__properties_prefix Orchestra_properties
+| kw___Project Entity_prop___name kw___Entity__properties_prefix Project_properties
+| kw___Requirement Entity_prop___name kw___Entity__properties_prefix Requirement_properties
+| kw___Feature Entity_prop___name kw___Entity__properties_prefix Feature_properties
+| kw___Release Entity_prop___name kw___Entity__properties_prefix Release_properties
+| kw___EventHandler Entity_prop___name kw___Entity__properties_prefix EventHandler_properties
+| kw___Event Entity_prop___name kw___Entity__properties_prefix Event_properties
+| kw___Test Entity_prop___name kw___Entity__properties_prefix Test_properties
+| kw___Repository Entity_prop___name kw___Entity__properties_prefix Repository_properties
+| kw___Member Entity_prop___name kw___Entity__properties_prefix Member_properties
+| kw___Definition Entity_prop___name kw___Entity__properties_prefix Definition_properties
+| kw___Issue Entity_prop___name kw___Entity__properties_prefix Issue_properties
+| kw___UseCase Entity_prop___name kw___Entity__properties_prefix UseCase_properties
+| kw___Task Entity_prop___name kw___Entity__properties_prefix Task_properties
+| kw___DataStruct Entity_prop___name kw___Entity__properties_prefix DataStruct_properties
+| kw___Deployment Entity_prop___name kw___Entity__properties_prefix Deployment_properties
+| kw___Role Entity_prop___name kw___Entity__properties_prefix Role_properties
+
+
+Orchestra_properties: Entity_properties | Orchestra_spec_properties
+Project_properties: Entity_properties | Project_spec_properties
+Requirement_properties: Entity_properties | Requirement_spec_properties
+Feature_properties: Entity_properties | Feature_spec_properties
+Release_properties: Entity_properties | Release_spec_properties
+EventHandler_properties: Entity_properties | EventHandler_spec_properties
+Event_properties: Entity_properties | Event_spec_properties
+Test_properties: Entity_properties | Test_spec_properties
+Repository_properties: Entity_properties | Repository_spec_properties
+Member_properties: Entity_properties | Member_spec_properties
+Definition_properties: Entity_properties | Definition_spec_properties
+Issue_properties: Entity_properties | Issue_spec_properties
+UseCase_properties: Entity_properties | UseCase_spec_properties
+Task_properties: Entity_properties | Task_spec_properties
+DataStruct_properties: Entity_properties | DataStruct_spec_properties
+Deployment_properties: Entity_properties | Deployment_spec_properties
+Role_properties: Entity_properties | Role_spec_properties
+
+
+
+
+
+Entity_prop___name: string
+Entity_properties: Entity_prop___hasDescription 
+    | Entity_prop___hasTags
+    
+Entity_prop___hasDescription: kw___Entity__prop__hasDescription v___Entity__prop__hasDescription
+Entity_prop___hasTags: kw___Entity__prop__hasTags v___Entity__prop__hasTags
+
+
+v___Entity__prop__hasDescription: string_ml
+
+v___Orchestra__prop__extends: list string
+v___Orchestra__prop__hasOrchestras: list list
+v___Orchestra__prop__hasProjects: list list
+v___Orchestra__prop__hasRoles: list list
+v___Orchestra__prop__hasMembers: list list
+
+v___Project__prop__extends: list
+v___Project__prop__of:
+v___Project__prop__hasReleases: list
+v___Project__prop__hasRoles: list
+v___Project__prop__hasMembers: list
+v___Project__prop__hasRepositories: list
+
+v___Requirement__prop__extends: list
+v___Requirement__prop__expands: list
+v___Requirement__prop__of:
+v___Requirement__prop__excludes: list
+v___Requirement__prop__hasRequirements: list
+v___Requirement__prop__hasSources: list
+
+v___Feature__prop__extends: list
+v___Feature__prop__expands: list
+v___Feature__prop__from:
+v___Feature__prop__hasRequirements: list
+v___Feature__prop__implemented:
+v___Feature__prop__hasUrls: list
+
+v___Release__prop__extends: list
+v___Release__prop__of:
+v___Release__prop__hasRequirements: list
+v___Release__prop__supports: list
+v___Release__prop__excludes: list
+v___Release__prop__hasStartDate:
+v___Release__prop__hasEndDate:
+v___Release__prop__hasReleaseDate:
+v___Release__prop__hasVersion:
+v___Release__prop__hasNotes: list
+
+v___EventHandler__prop__extends: list
+v___EventHandler__prop__on:
+v___EventHandler__prop__triggers: list
+
+v___Event__prop__extends: list
+v___Event__prop__hasType:
+v___Event__prop__hasRepositories: list
+v___Event__prop__hasSources: list
+
+v___Repository__prop__extends: list
+v___Repository__prop__hasUrl:
+v___Repository__prop__hasGuests: list
+v___Repository__prop__hasDevelopers: list
+v___Repository__prop__hasMaintainers: list
+
+v___Member__prop__extends: list
+v___Member__prop__hasHandles: list
+v___Member__prop__hasRoles: list
+
+v___Definition__prop__extends: list
+v___Definition__prop__expands: list
+v___Definition__prop__hasSources: list
+v___Definition__prop__from:
+v___Definition__prop__solves: list
+
+v___Issue__prop__extends: list
+v___Issue__prop__solvedBy:
+v___Issue__prop__relatedTo:
+v___Issue__prop__from:
+
+v___UseCase__prop__extends: list
+v___UseCase__prop__hasPrimaryActor:
+v___UseCase__prop__hasActors: list
+v___UseCase__prop__triggers: list
+
+v___Task__prop__extends: list
+v___Task__prop__hasCommand:
+v___Task__prop__hasUrls: list
+
+v___Deployment__prop__extends: list
+v___Deployment__prop__hasType:
+v___Deployment__prop__of:
+v___Deployment__prop__hasIp:
+v___Deployment__prop__hasDomain:
+v___Deployment__prop__hasPorts: list
+v___Deployment__prop__isLive:
+
+v___Role__prop__extends: list
+v___Role__prop__hasStartData:
+v___Role__prop__hasEndDate:
+v___Role__prop__hasReponsabilities: list
+v___Role__prop__of:
+
+// Orchestra
+Orchestra_spec_properties: Orchestra_prop___extends
+    | Orchestra_prop___hasOrchestras
+    | Orchestra_prop___hasProjects
+    | Orchestra_prop___hasRoles
+    | Orchestra_prop___hasMembers
+
+Orchestra_prop___extends: kw___Orchestra_prop___extends  v___Orchestra__prop__extends 
+Orchestra_prop___hasOrchestras: kw___Orchestra_prop___hasOrchestras  v___Orchestra__prop__hasOrchestras 
+Orchestra_prop___hasProjects: kw___Orchestra_prop___hasProjects v___Orchestra__prop__hasProjects
+Orchestra_prop___hasRoles: kw___Orchestra_prop___hasRoles v___Orchestra__prop__hasRoles
+Orchestra_prop___hasMembers: kw___Orchestra_prop___hasMembers v___Orchestra__prop__hasMembers
+
+// Project
+Project_spec_properties: Project_prop___extends
+    | Project_prop___of
+    | Project_prop___hasReleases
+    | Project_prop___hasRoles
+    | Project_prop___hasMembers
+    | Project_prop___hasRepositories
+
+Project_prop___extends: kw___Project_prop___extends v___Project__prop__extends
+Project_prop___of: kw___Project_prop___of v___Project__prop__of
+Project_prop___hasReleases: kw___Project_prop___hasReleases v___Project__prop__hasReleases
+Project_prop___hasRoles: kw___Project_prop___hasRoles v___Project__prop__hasRoles
+Project_prop___hasMembers: kw___Project_prop___hasMembers v___Project__prop__hasMembers
+Project_prop___hasRepositories: kw___Project_prop___hasRepositories v___Project__prop__hasRepositories
+
+// Requirement
+Requirement_spec_properties: Requirement_prop___extends
+    | Requirement_prop___expands
+    | Requirement_prop___of
+    | Requirement_prop___excludes
+    | Requirement_prop___hasRequirements
+    | Requirement_prop___hasSources     
+
+Requirement_prop___extends: kw___Requirement_prop___extends v___Requirement__prop__extends
+Requirement_prop___expands: kw___Requirement_prop___expands v___Requirement__prop__expands
+Requirement_prop___of: kw___Requirement_prop___of v___Requirement__prop__of
+Requirement_prop___excludes: kw___Requirement_prop___excludes v___Requirement__prop__excludes
+Requirement_prop___hasRequirements: kw___Requirement_prop___hasRequirements v___Requirement__prop__hasRequirements
+Requirement_prop___hasSources: kw___Requirement_prop___hasSources v___Requirement__prop__hasSources
+
+// Feature
+Feature_spec_properties: Feature_prop___extends
+    | Feature_prop___expands
+    | Feature_prop___from
+    | Feature_prop___hasRequirements
+    | Feature_prop___implemented
+    | Feature_prop___hasUrls
+
+Feature_prop___extends: kw___Feature_prop___extends v___Feature__prop__extends
+Feature_prop___expands: kw___Feature_prop___expands v___Feature__prop__expands
+Feature_prop___from: kw___Feature_prop___from v___Feature__prop__from
+Feature_prop___hasRequirements: kw___Feature_prop___hasRequirements v___Feature__prop__hasRequirements
+Feature_prop___implemented: kw___Feature_prop___implemented v___Feature__prop__implemented
+Feature_prop___hasUrls: kw___Feature_prop___hasUrls v___Feature__prop__hasUrls
+
+// Release
+Release_spec_properties: Release_prop___extends
+    | Release_prop___of
+    | Release_prop___hasRequirements
+    | Release_prop___supports
+    | Release_prop___excludes
+    | Release_prop___hasStartDate
+    | Release_prop___hasEndDate 
+    | Release_prop___hasReleaseDate 
+    | Release_prop___hasVersion
+    | Release_prop___hasNotes
+
+Release_prop___extends: kw___Release_prop___extends v___Release__prop__extends
+Release_prop___of: kw___Release_prop___of v___Release__prop__of
+Release_prop___hasRequirements: kw___Release_prop___hasRequirements v___Release__prop__hasRequirements
+Release_prop___supports: kw___Release_prop___supports v___Release__prop__supports
+Release_prop___excludes: kw___Release_prop___excludes v___Release__prop__excludes
+Release_prop___hasStartDate: kw___Release_prop___hasStartDate v___Release__prop__hasStartDate
+Release_prop___hasEndDate: kw___Release_prop___hasEndDate v___Release__prop__hasEndDate
+Release_prop___hasReleaseDate: kw___Release_prop___hasReleaseDate v___Release__prop__hasReleaseDate
+Release_prop___hasVersion: kw___Release_prop___hasVersion v___Release__prop__hasVersion
+Release_prop___hasNotes: kw___Release_prop___hasNotes v___Release__prop__hasNotes
+
+
+// EventHandler
+EventHandler_spec_properties: EventHandler_prop___extends
+    | EventHandler_prop___on
+    | EventHandler_prop___triggers
+
+EventHandler_prop___extends: kw___EventHandler_prop___extends v___EventHandler__prop__extends
+EventHandler_prop___on: kw___EventHandler_prop___on v___EventHandler__prop__on
+EventHandler_prop___triggers: kw___EventHandler_prop___triggers v___EventHandler__prop__triggers
+
+// Event
+Event_spec_properties: Event_prop___extends 
+    | Event_prop___hasType
+    | Event_prop___hasRepositories
+    | Event_prop___hasSources
+
+Event_prop___extends: kw___Event_prop___extends v___Event__prop__extends
+Event_prop___hasType: kw___Event_prop___hasType v___Event__prop__hasType
+Event_prop___hasRepositories: kw___Event_prop___hasRepositories v___Event__prop__hasRepositories
+Event_prop___hasSources: kw___Event_prop___hasSources v___Event__prop__hasSources
+
+// Test
+Test_spec_properties: Test_prop___extends
+    | Test_prop___hasCommand
+    | Test_prop___targets
+
+
+// Repository
+Repository_spec_properties: Repository_prop___extends
+    | Repository_prop___hasUrl
+    | Repository_prop___hasGuests
+    | Repository_prop___hasDevelopers
+    | Repository_prop___hasMaintainers
+
+Repository_prop___extends: kw___Repository_prop___extends v___Repository__prop__extends
+Repository_prop___hasUrl: kw___Repository_prop___hasUrl v___Repository__prop__hasUrl
+Repository_prop___hasGuests: kw___Repository_prop___hasGuests v___Repository__prop__hasGuests
+Repository_prop___hasDevelopers: kw___Repository_prop___hasDevelopers v___Repository__prop__hasDevelopers
+Repository_prop___hasMaintainers: kw___Repository_prop___hasMaintainers v___Repository__prop__hasMaintainers
+
+// Member
+Member_spec_properties: Member_prop___extends
+    | Member_prop___hasHandles
+    | Member_prop___hasRoles
+
+Member_prop___extends: kw___Member_prop___extends v___Member__prop__extends
+Member_prop___hasHandles: kw___Member_prop___hasHandles v___Member__prop__hasHandles
+Member_prop___hasRoles: kw___Member_prop___hasRoles v___Member__prop__hasRoles
+
+// Definition
+Definition_spec_properties: Definition_prop___extends
+    | Definition_prop___expands
+    | Definition_prop___hasSources
+    | Definition_prop___from
+    | Definition_prop___solves
+
+Definition_prop___extends: kw___Definition_prop___extends v___Definition__prop__extends
+Definition_prop___expands: kw___Definition_prop___expands v___Definition__prop__expands
+Definition_prop___hasSources: kw___Definition_prop___hasSources v___Definition__prop__hasSources
+Definition_prop___from: kw___Definition_prop___from v___Definition__prop__from
+Definition_prop___solves: kw___Definition_prop___solves v___Definition__prop__solves
+
+// Issue    
+Issue_spec_properties: Issue_prop___extends
+    | Issue_prop___solvedBy
+    | Issue_prop___relatedTo
+    | Issue_prop___from 
+
+Issue_prop___extends: kw___Issue_prop___extends v___Issue__prop__extends
+Issue_prop___solvedBy: kw___Issue_prop___solvedBy v___Issue__prop__solvedBy
+Issue_prop___relatedTo: kw___Issue_prop___relatedTo v___Issue__prop__relatedTo
+Issue_prop___from: kw___Issue_prop___from v___Issue__prop__from
+
+// UseCase
+UseCase_spec_properties: UseCase_prop___extends
+    | UseCase_prop___hasPrimaryActor
+    | UseCase_prop___hasActors 
+    | UseCase_prop___triggers
+
+UseCase_prop___extends: kw___UseCase_prop___extends v___UseCase__prop__extends
+UseCase_prop___hasPrimaryActor: kw___UseCase_prop___hasPrimaryActor v___UseCase__prop__hasPrimaryActor
+UseCase_prop___hasActors : kw___UseCase_prop___hasActors  v___UseCase__prop__hasActors 
+UseCase_prop___triggers: kw___UseCase_prop___triggers v___UseCase__prop__triggers
+
+// Task
+Task_spec_properties: Task_prop___extends
+    | Task_prop___hasCommand 
+    | Task_prop___hasUrls
+
+Task_prop___extends: kw___Task_prop___extends v___Task__prop__extends
+Task_prop___hasCommand: kw___Task_prop___hasCommand v___Task__prop__hasCommand
+Task_prop___hasUrls: kw___Task_prop___hasUrls v___Task__prop__hasUrls
+
+// DataStruct
+//DataStruct_spec_properties
+
+// Deployment
+Deployment_spec_properties: Deployment_prop___extends
+    | Deployment_prop___hasType
+    | Deployment_prop___of
+    | Deployment_prop___hasIp
+    | Deployment_prop___hasDomain
+    | Deployment_prop___hasPorts
+    | Deployment_prop___isLive
+
+Deployment_prop___extends: kw___Deployment_prop___extends v___Deployment__prop__extends
+Deployment_prop___hasType: kw___Deployment_prop___hasType v___Deployment__prop__hasType
+Deployment_prop___of: kw___Deployment_prop___of v___Deployment__prop__of
+Deployment_prop___hasIp: kw___Deployment_prop___hasIp v___Deployment__prop__hasIp
+Deployment_prop___hasDomain: kw___Deployment_prop___hasDomain v___Deployment__prop__hasDomain
+Deployment_prop___hasPorts: kw___Deployment_prop___hasPorts v___Deployment__prop__hasPorts
+Deployment_prop___isLive: kw___Deployment_prop___isLive v___Deployment__prop__isLive
+
+// Role
+Role_spec_properties: Role_prop___extends
+    | Role_prop___hasStartData
+    | Role_prop___hasEndDate
+    | Role_prop___hasReponsabilities
+    | Role_prop___of 
+
+Role_prop___extends: kw___Role_prop___extends v___Role__prop__extends
+Role_prop___hasStartData: kw___Role_prop___hasStartData v___Role__prop__hasStartData
+Role_prop___hasEndDate: kw___Role_prop___hasEndDate v___Role__prop__hasEndDate
+Role_prop___hasReponsabilities: kw___Role_prop___hasReponsabilities v___Role__prop__hasReponsabilities
+Role_prop___of : kw___Role_prop___of  v___Role__prop__of
+
+
+
+
+
+list: list ,
+    | string
+
+string: ESCAPED_STRING
+string_ml: ML_STRING
+ML_STRING.2: /(""".*?(?<!\\)(\\\\)*?"""|'''.*?(?<!\\)(\\\\)*?''')/is
+
+
+
+kw___Entity__declaration_prefix: "let" | "declare"
+kw___Entity__properties_prefix: "which"
+
+kw___Entity__prop__hasDescription: "hasDescription"
+
+kw___Orchestra: "Orchestra"
+kw___Project: "Project"
+kw___Requirement: "Requirement"
+kw___Feature: "Feature"
+kw___Release: "Release"
+kw___EventHandler: "EventHandler"
+kw___Event: "Event"
+kw___Test: "Test"
+kw___Repository: "Repository"
+kw___Member: "Member"
+kw___Definition: "Definition"
+kw___Issue: "Issue"
+kw___UseCase: "UseCase"
+kw___Task: "Task"
+kw___DataStruct: "DataStruct"
+kw___Deployment: "Deployment"
+kw___Role: "Role"
+
+kw___Orchestra_prop___extends: "extends"
+kw___Orchestra_prop___hasOrchestras: "hasOrchestras" 
+kw___Orchestra_prop___hasProjects: "hasProjects"
+kw___Orchestra_prop___hasRoles: "hasRoles"
+kw___Orchestra_prop___hasMembers: "hasMembers"
+
+kw___Project_prop___extends: "extends"
+kw___Project_prop___of: "of"
+kw___Project_prop___hasReleases: "hasReleases"
+kw___Project_prop___hasRoles: "hasRoles"
+kw___Project_prop___hasMembers: "hasMembers"
+kw___Project_prop___hasRepositories: "hasRepositories"
+
+kw___Requirement_prop___extends: "extends"
+kw___Requirement_prop___expands: "expands"
+kw___Requirement_prop___of: "of"
+kw___Requirement_prop___excludes: "excludes"
+kw___Requirement_prop___hasRequirements: "hasRequirements"
+kw___Requirement_prop___hasSources: "hasSources"
+
+kw___Feature_prop___extends: "extends"
+kw___Feature_prop___expands: "expands"
+kw___Feature_prop___from: "from"
+kw___Feature_prop___hasRequirements: "hasRequirements"
+kw___Feature_prop___implemented: "implemented"
+kw___Feature_prop___hasUrls: "hasUrls"
+
+kw___Release_prop___extends: "extends"
+kw___Release_prop___of: "of"
+kw___Release_prop___hasRequirements: "hasRequirements"
+kw___Release_prop___supports: "supports"
+kw___Release_prop___excludes: "excludes"
+kw___Release_prop___hasStartDate: "hasStartDate"
+kw___Release_prop___hasEndDate: "hasEndDate"
+kw___Release_prop___hasReleaseDate: "hasReleaseDate" 
+kw___Release_prop___hasVersion: "hasVersion"
+kw___Release_prop___hasNotes: "hasNotes"
+
+kw___EventHandler_prop___extends: "extends"
+kw___EventHandler_prop___on: "on"
+kw___EventHandler_prop___triggers: "triggers"
+
+kw___Event_prop___extends: "extends"
+kw___Event_prop___hasType: "hasType"
+kw___Event_prop___hasRepositories: "hasRepositories"
+kw___Event_prop___hasSources: "hasSources"
+
+kw___Test_prop___extends: "extends"
+kw___Test_prop___hasCommand: "hasCommand"
+kw___Test_prop___targets: "targets"
+
+kw___Repository_prop___extends: "extends"
+kw___Repository_prop___hasUrl: "hasUrl"
+kw___Repository_prop___hasGuests: "hasGuests"
+kw___Repository_prop___hasDevelopers: "hasDevelopers"
+kw___Repository_prop___hasMaintainers: "hasMaintainers"
+
+kw___Member_prop___extends: "extends"
+kw___Member_prop___hasHandles: "hasHandles"
+kw___Member_prop___hasRoles: "hasRoles"
+
+kw___Definition_prop___extends: "extends"
+kw___Definition_prop___expands: "expands"
+kw___Definition_prop___hasSources: "hasSources"
+kw___Definition_prop___from: "from"
+kw___Definition_prop___solves: "solves"
+
+kw___Issue_prop___extends: "extends"
+kw___Issue_prop___solvedBy: "solvedBy"
+kw___Issue_prop___relatedTo: "relatedTo"
+kw___Issue_prop___from: "from"
+
+kw___UseCase_prop___extends: "extends"
+kw___UseCase_prop___hasPrimaryActor: "hasPrimaryActor"
+kw___UseCase_prop___hasActors: "hasActors"
+kw___UseCase_prop___triggers: "triggers"
+
+kw___Task_prop___extends: "extends"
+kw___Task_prop___hasCommand: "hasCommand"
+kw___Task_prop___hasUrls: "hasUrls"
+
+kw___Deployment_prop___extends: "extends"
+kw___Deployment_prop___hasType: "hasType"
+kw___Deployment_prop___of: "of"
+kw___Deployment_prop___hasIp: "hasIp"
+kw___Deployment_prop___hasDomain: "hasDomain"
+kw___Deployment_prop___hasPorts: "hasPorts"
+kw___Deployment_prop___isLive: "isLive"
+
+kw___Role_prop___extends: "extends"
+kw___Role_prop___hasStartData: "hasStartData"
+kw___Role_prop___hasEndDate: "hasEndDate"
+kw___Role_prop___hasReponsabilities: "hasReponsabilities"
+kw___Role_prop___of: "of"
+
+
+%import common.NEWLINE -> _NL
+%import common.WS_INLINE -> _WS
+%import common.ESCAPED_STRING
+%ignore _WS
+%ignore _NL
