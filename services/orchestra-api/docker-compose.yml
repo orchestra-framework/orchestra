@@ -10,3 +10,4 @@ services:
       - 5002:2345
     volumes:
       - .:/debug_env
+      - ../orchestra-parser:/orchestra-parser

@@ -15,7 +15,7 @@ pytest = "^5.2"
 [tool.poetry.scripts]
 gen-grammar = ""
 gen-sample = "orchestra_parser.tests.gen_sample_orcx:start"
-orcx2json = "orchestra_parser.orcx2json:start"
+orchx2json = "orchestra_parser.orchx2json:start"
 json2rdf = "orchestra_parser.json2rdf:start"
 
 [tool.poe.tasks]
