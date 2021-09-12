@@ -21,14 +21,37 @@ func main() {
 		log.Print("here: show")
 	})
 
+	router.GET("/add", func(c *gin.Context) {
+
+		// get post body content and save it into file.
+		inputFileName := "tmp.orchx"
+		log.Print("inputFileName: ", inputFileName)
+
+		cmd := exec.Command("python3", "/orchestra-parser/orchestra_parser/src/orchx2json.py")//inputFileName)
+		
+		out, err := cmd.Output();
+		message := string(out)
+		if err != nil { 
+			message = err.Error()
+			log.Print("Error: ", err)
+		}  
+
+		log.Print("Out: ", message)
+		c.JSON(200, gin.H{			
+			"message": message,
+		})
+
+		log.Print("here: add")
+	})
+
 	router.POST("/add", func(c *gin.Context) {
 
 		// get post body content and save it into file.
-		inputFileName := "tmp.orchx"	
+		inputFileName := "tmp.orchx"
 
-		c := exec.Command("cd /orchestra-parser;", "poetry", "run", "orchx2json", inputFileName)
+		cmd := exec.Command("ls -la; cd /orchestra-parser;", "poetry", "run", "orchx2json", inputFileName)
 
-		if err := c.Run(); err != nil { 
+		if err := cmd.Run(); err != nil { 
 			log.Print("Error: ", err)
 		}   
 

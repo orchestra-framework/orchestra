@@ -76,9 +76,9 @@ v = {
     "release_prop___hasVersion": str,
     "release_prop___hasNotes": str,
 
-    "eventhandler_prop___extends": EventHandler,
-    "eventhandler_prop___on": Event,
-    "eventhandler_prop___triggers": Task,
+    "eventHandler_prop___extends": EventHandler,
+    "eventHandler_prop___on": Event,
+    "eventHandler_prop___triggers": Task,
 
     "event_prop___extends": Event,
     "event_prop___hasType": {datetime.date, "merge_request", "commit"},
