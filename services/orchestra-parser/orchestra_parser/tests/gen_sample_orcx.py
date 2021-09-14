@@ -89,11 +89,11 @@ def gen___entity(entityType):
     return (Template("""$prefix $name $properties_prefix
 \t$description
 \t$tags $properties""").substitute({
-        'prefix': random.choice(lang.keywords['entity__declaration_prefix']) + ' ' + lang.keywords[entityType],        
-        'name': gen___v_string(),
-        'properties_prefix': lang.keywords['entity__properties_prefix'],        
-        'description': lang.keywords['entity__prop__hasDescription'] + ' ' + idLorem.sentence(),        
-        'tags': lang.keywords['entity__prop__hasTags'] + ' ' + gen___v_string().lower(),
+        'prefix': random.choice(lang.keywords['entity_declaration_prefix'].split("|")) + ' ' + lang.keywords[entityType],        
+        'name': "\"" + gen___v_string() + "\"",
+        'properties_prefix': lang.keywords['entity_properties_prefix'],        
+        'description': lang.keywords['entity_prop___hasdescription'] + ' ' + idLorem.sentence(),        
+        'tags': lang.keywords['entity_prop___hastags'] + ' ' + gen___v_string().lower(),
         'properties': gen___properties(entityType)
     }))
 

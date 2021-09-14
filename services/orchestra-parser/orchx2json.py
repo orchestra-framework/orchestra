@@ -12,15 +12,22 @@ from orchestra_parser import  lang
 from orchestra_parser import lang
 
 
-orchestra_lark = None
+orchestra_lark = {}
 
-def define_transformer_class(): 
+def define_transformer_class():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     print("dir_path:" + dir_path)
-    grammar_template_file_path = os.path.join(dir_path, "grammar.v1.5.lark.template")
+    grammar_template_file_path = os.path.join(dir_path, "grammar.template.lark")
     with open(grammar_template_file_path) as grammar_template_file:
         #print(lang.keywords['orchestra_prop___extends'])
-        grammar = Template(grammar_template_file.read()).substitute(lang.keywords)
+        keywordsDict = {}
+        for key in lang.keywords:
+            keywordsDict[key] = "|".join(map(lambda x: "\"" + x + "\"", lang.keywords[key].split("|")))
+        
+        grammar = Template(grammar_template_file.read()).substitute({
+            **keywordsDict,
+            **lang.values
+        })
         #print(grammar)
         
         class_declarations = ''
@@ -51,22 +58,25 @@ class OrchestraTransformer(Transformer):
         return s[0]
 
         """ + class_declarations + """
-orchestra_lark = Lark(grammar, parser='lalr', lexer='standard', transformer=OrchestraTransformer())
+ol = Lark(grammar, parser='lalr', lexer='standard', transformer=OrchestraTransformer())
+orchestra_lark['parse'] = ol.parse
+print(orchestra_lark)
         """
-    exec(parser_script)
+    exec(parser_script, {**globals(), "orchestra_lark": orchestra_lark, "grammar": grammar})
 
 
-def main():     
-    define_transformer_class()
+def main():         
     with open(sys.argv[1]) as f:
-        pass
+        define_transformer_class()
+
+        print(sys.argv[1])        
             #tree = json_parser.parse(f.read())
             #tree = TreeToJson().transform(tree)        
             #print(tree['a'])
             #print(f.read())
             
-            #entities = orchestra_lark.parse(f.read())
-            #print(json.dumps(entities))
+        entities = orchestra_lark['parse'](f.read())
+        print(json.dumps(entities))
     
 
 

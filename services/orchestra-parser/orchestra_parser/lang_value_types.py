@@ -1,131 +1,98 @@
-import datetime
-class Entity():
-    pass
-
-class Orchestra(Entity):
-    pass
-class Project(Entity):
-    pass
-class Requirement(Entity):
-    pass
-class Feature(Entity):
-    pass
-class Release(Entity):
-    pass
-class EventHandler(Entity):
-    pass
-class Event(Entity):
-    pass
-class Test(Entity):
-    pass
-class Repository(Entity):
-    pass
-class Member(Entity):
-    pass
-class Definition(Entity):
-    pass
-class Issue(Entity):
-    pass
-class UseCase(Entity):
-    pass
-class Task(Entity):
-    pass
-class DataStruct(Entity):
-    pass
-class Deployment(Entity):
-    pass
-class Role(Entity):
-    pass
-
 v = {
-    "orchestra_prop___extends": Orchestra,
-    "orchestra_prop___hasOrchestras": [Orchestra],
-    "orchestra_prop___hasProjects": [Project],
-    "orchestra_prop___hasRoles": [Role],
-    "orchestra_prop___hasMembers": [Member],
+    "v___entity__prop__hasdescription": "string_ml",
+    "v___entity__prop__hastags": "list",
+    "v___orchestra__prop__extends": "string",
+    "v___orchestra__prop__hasorchestras": "list",
+    "v___orchestra__prop__hasprojects": "list",
+    "v___orchestra__prop__hasroles": "list",
+    "v___orchestra__prop__hasmembers": "list",
 
-    "project_prop___extends": Project,
-    "project_prop___of": Orchestra,
-    "project_prop___hasReleases": [Release],
-    "project_prop___hasRoles": [Role],
-    "project_prop___hasMembers": [Member],
-    "project_prop___hasRepositories": [Repository],
+    "v___project__prop__extends": "string",
+    "v___project__prop__of": "string",
+    "v___project__prop__hasreleases": "list",
+    "v___project__prop__hasroles": "list",
+    "v___project__prop__hasmembers": "list",
+    "v___project__prop__hasrepositories": "list",
 
-    "requirement_prop___extends": Requirement,
-    "requirement_prop___expands": [Requirement],
-    "requirement_prop___of": Project,
-    "requirement_prop___excludes": [Requirement],
-    "requirement_prop___hasRequirements": [Requirement],
-    "requirement_prop___hasSources": [Member, str],
+    "v___requirement__prop__extends": "string",
+    "v___requirement__prop__expands": "list",
+    "v___requirement__prop__of": "string",
+    "v___requirement__prop__excludes": "list",
+    "v___requirement__prop__hasrequirements": "list",
+    "v___requirement__prop__hassources": "list",
 
-    "feature_prop___extends": Feature,
-    "feature_prop___expands": Feature,
-    "feature_prop___from": [Member, str],
-    "feature_prop___hasRequirements": [Requirement],
-    "feature_prop___implemented": "bool",
-    "feature_prop___hasUrls": [str],
+    "v___feature__prop__extends": "string",
+    "v___feature__prop__expands": "list",
+    "v___feature__prop__from": "list",
+    "v___feature__prop__hasrequirements": "list",
+    "v___feature__prop__implemented": "boolean",
+    "v___feature__prop__hasurls": "list",
 
-    "release_prop___extends": [Release],
-    "release_prop___of": [Orchestra, Project, Release],
-    "release_prop___hasRequirements": [Requirement],
-    "release_prop___supports": [Requirement, Feature],
-    "release_prop___excludes": [Requirement, Feature],
-    "release_prop___hasStartDate": datetime.date,
-    "release_prop___hasEndDate": datetime.date,
-    "release_prop___hasReleaseDate": datetime.date,
-    "release_prop___hasVersion": str,
-    "release_prop___hasNotes": str,
+    "v___release__prop__extends": "string",
+    "v___release__prop__of": "string",
+    "v___release__prop__hasrequirements": "list",
+    "v___release__prop__supports": "list",
+    "v___release__prop__excludes": "list",
+    "v___release__prop__hasstartdate": "date",
+    "v___release__prop__hasenddate": "date",
+    "v___release__prop__hasreleasedate": "date",
+    "v___release__prop__hasversion": "version",
+    "v___release__prop__hasnotes": "string",
 
-    "eventHandler_prop___extends": EventHandler,
-    "eventHandler_prop___on": Event,
-    "eventHandler_prop___triggers": Task,
+    "v___eventhandler__prop__extends": "string",
+    "v___eventhandler__prop__on": "string",
+    "v___eventhandler__prop__triggers": "string",
 
-    "event_prop___extends": Event,
-    "event_prop___hasType": {datetime.date, "merge_request", "commit"},
-    "event_prop___hasRepositories": [Repository],
-    "event_prop___hasSources": [Repository, Role, Member],
+    "v___event__prop__extends": "string",
+    "v___event__prop__hastype": "string",
+    "v___event__prop__hasrepositories": "list",
+    "v___event__prop__hassources": "list",
 
-    "repository_prop___extends": [Repository],
-    "repository_prop___hasUrl": str,
-    "repository_prop___hasGuests": [Member],
-    "repository_prop___hasDevelopers": [Member],
-    "repository_prop___hasMaintainers": [Member],
+    "v___test__prop__extends": "string",
+    "v___test__prop__hascommand": "string",
+    "v___test__prop__targets": "list",
 
-    "member_prop___extends": [Member],
-    "member_prop___hasHandles": str,
-    "member_prop___hasRoles": [Role, str],
+    "v___repository__prop__extends": "string",
+    "v___repository__prop__hasurl": "string",
+    "v___repository__prop__hasguests": "list",
+    "v___repository__prop__hasdevelopers": "list",
+    "v___repository__prop__hasmaintainers": "list",
 
-    "definition_prop___extends": Definition,
-    "definition_prop___expands": [Entity],
-    "definition_prop___hasSources": [Member, str],
-    "definition_prop___from": {Member, str},
-    "definition_prop___solves": [Issue],
+    "v___member__prop__extends": "string",
+    "v___member__prop__hashandles": "list",
+    "v___member__prop__hasroles": "list",
+    
+    "v___definition__prop__extends": "string",
+    "v___definition__prop__expands": "list",
+    "v___definition__prop__hassources": "list",
+    "v___definition__prop__from": "string",
+    "v___definition__prop__solves": "list",
 
-    "issue_prop___extends": Issue,
-    "issue_prop___solvedby": [Entity],
-    "issue_prop___relatedto": [Entity],
-    "issue_prop___from": {Member, str},
+    "v___issue__prop__extends": "string",
+    "v___issue__prop__solvedby": "list",
+    "v___issue__prop__relatedto": "list",
+    "v___issue__prop__from": "string",
 
-    "usecase_prop___extends": UseCase,
-    "usecase_prop___hasPrimaryactor": {Member, str},
-    "usecase_prop___hasActors": [Member, str],
-    "usecase_prop___triggers": [Feature],
+    "v___usecase__prop__extends": "string",
+    "v___usecase__prop__hasprimaryactor": "string",
+    "v___usecase__prop__hasactors": "list",
+    "v___usecase__prop__triggers": "list",
 
-    "task_prop___extends": Task,
-    "task_prop___hasCommand": str,
-    "task_prop___hasUrls": [str],
+    "v___task__prop__extends": "string",
+    "v___task__prop__hascommand": "list",
+    "v___task__prop__hasurls": "list",
 
-    "deployment_prop___extends": Deployment,
-    "deployment_prop___hasType": {"Production", "Test"},
-    "deployment_prop___of": {Release, Deployment},
-    "deployment_prop___hasIp": str,
-    "deployment_prop___hasDomain": str,
-    "deployment_prop___hasPorts": [str],
-    "deployment_prop___islive": bool,
+    "v___deployment__prop__extends": "string",
+    "v___deployment__prop__hastype": "\"test\" | \"production\"",
+    "v___deployment__prop__of": "string",
+    "v___deployment__prop__hasip": "string",
+    "v___deployment__prop__hasdomain": "string",
+    "v___deployment__prop__hasports": "list",
+    "v___deployment__prop__islive": "boolean",
 
-    "role_prop___extends": Role,
-    "role_prop___hasStartDate": datetime.date,
-    "role_prop___hasEndDate": datetime.date,
-    "role_prop___hasReponsabilities": [str],
-    "role_prop___of": [Orchestra, Project],
+    "v___role__prop__extends": "string",
+    "v___role__prop__hasstartdate": "date",
+    "v___role__prop__hasenddate": "date",
+    "v___role__prop__hasreponsabilities": "list",
+    "v___role__prop__of": "string"
 }
